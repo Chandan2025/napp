@@ -1,5 +1,6 @@
-const API_KEY="0809efd3f22442d18ea57cfcf7fc03cf";
-const url="https://newsapi.org/v2/everything?q=";
+const API_KEY = "0809efd3f22442d18ea57cfcf7fc03cf";
+const url = "https://newsapi.org/v2/everything?q=";
+
 window.addEventListener("load", () => fetchNews("India"));
 
 function reload() {
@@ -7,9 +8,15 @@ function reload() {
 }
 
 async function fetchNews(query) {
-    const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
-    const data = await res.json();
-    bindData(data.articles);
+    try {
+        const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        const data = await res.json();
+        if (!data.articles || data.articles.length === 0) throw new Error("No articles found");
+        bindData(data.articles);
+    } catch (error) {
+        console.error("Error fetching news:", error);
+    }
 }
 
 function bindData(articles) {
@@ -33,14 +40,14 @@ function fillDataInCard(cardClone, article) {
     const newsDesc = cardClone.querySelector("#news-desc");
 
     newsImg.src = article.urlToImage;
-    newsTitle.innerHTML = article.title;
-    newsDesc.innerHTML = article.description;
+    newsTitle.innerText = article.title;
+    newsDesc.innerText = article.description || "No description available";
 
     const date = new Date(article.publishedAt).toLocaleString("en-US", {
         timeZone: "Asia/Jakarta",
     });
 
-    newsSource.innerHTML = `${article.source.name} · ${date}`;
+    newsSource.innerText = `${article.source.name} · ${date}`;
 
     cardClone.firstElementChild.addEventListener("click", () => {
         window.open(article.url, "_blank");
@@ -50,19 +57,12 @@ function fillDataInCard(cardClone, article) {
 let curSelectedNav = null;
 function onNavItemClick(id) {
     fetchNews(id);
-    const navItem = document.getElementById(id);
-    curSelectedNav?.classList.remove("active");
-    curSelectedNav = navItem;
+    if (curSelectedNav) curSelectedNav.classList.remove("active");
+    curSelectedNav = document.getElementById(id);
     curSelectedNav.classList.add("active");
 }
 
-const searchButton = document.getElementById("search-button");
-const searchText = document.getElementById("search-text");
-
-searchButton.addEventListener("click", () => {
-    const query = searchText.value;
-    if (!query) return;
-    fetchNews(query);
-    curSelectedNav?.classList.remove("active");
-    curSelectedNav = null;
+document.getElementById("search-button").addEventListener("click", () => {
+    const query = document.getElementById("search-text").value;
+    if (query) fetchNews(query);
 });
