@@ -16,6 +16,7 @@
 body {
     font-family: "Poppins", sans-serif;
     color: var(--primary-text-color);
+    background-color: #f4f4f4;
 }
 
 p {
@@ -39,8 +40,8 @@ ul {
 
 .container {
     max-width: 1180px;
-    margin-inline: auto;
-    overflow: hidden;
+    margin: auto;
+    padding: 0 20px;
 }
 
 nav {
@@ -48,18 +49,17 @@ nav {
     box-shadow: 0 0 4px #1d0e3f;
     position: fixed;
     top: 0;
+    width: 100%;
     z-index: 99;
-    left: 0;
-    right: 0;
 }
 
 .main-nav {
     justify-content: space-between;
-    padding-block: 8px;
+    padding: 10px;
 }
 
 .company-logo img {
-    width: 120px;
+    width: 100px;
 }
 
 .nav-links ul {
@@ -68,14 +68,12 @@ nav {
 
 .hover-link {
     cursor: pointer;
+    color: white;
+    transition: 0.3s;
 }
 
 .hover-link:hover {
     color: var(--secondary-text-color);
-}
-
-.hover-link:active {
-    color: red;
 }
 
 .nav-item.active {
@@ -89,8 +87,7 @@ nav {
 
 .news-input {
     width: 200px;
-    height: 100%;
-    padding-inline: 12px;
+    padding: 5px;
     border-radius: 4px;
     border: 2px solid #bbd0e2;
     font-family: "Roboto", sans-serif;
@@ -99,11 +96,10 @@ nav {
 .search-button {
     background-color: orangered;
     color: white;
-    padding: 8px 24px;
+    padding: 8px 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-family: "Roboto", sans-serif;
 }
 
 .search-button:hover {
@@ -111,32 +107,28 @@ nav {
 }
 
 main {
-    padding-block: 20px;
     margin-top: 80px;
+    padding: 20px;
 }
 
 .cards-container {
-    justify-content: space-between;
+    display: flex;
     flex-wrap: wrap;
-    row-gap: 20px;
-    align-items: start;
+    gap: 20px;
 }
 
 .card {
-    width: 360px;
-    min-height: 400px;
-    box-shadow: 0 0 4px #d4ecff;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #fff;
+    width: 300px;
+    background-color: white;
+    border-radius: 8px;
     overflow: hidden;
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
 }
 
 .card:hover {
-    box-shadow: 1px 1px 8px #d4ecff;
-    background-color: #f9fdff;
-    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
 }
 
 .card-header img {
@@ -146,9 +138,11 @@ main {
 }
 
 .card-content {
-    padding: 12px;
+    padding: 15px;
 }
 
 .news-source {
-    margin-block: 12px;
+    font-size: 0.8rem;
+    color: gray;
+    margin: 10px 0;
 }
